@@ -106,12 +106,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
 
 USE_TZ = True
 
+TIME_ZONE = 'Asia/Kolkata'
 SESSION_COOKIE_SECURE = True  # Use HTTPS in production
 SESSION_COOKIE_HTTPONLY = True  # Prevent JavaScript access
 

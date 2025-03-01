@@ -1,0 +1,56 @@
+{% load static %}
+{% load tz %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Credit Requests</title>
+    <link rel="stylesheet" href="{% static 'CSS/admincredits.css' %}" />
+</head>
+<body>
+    <h1>Admin - Manage Credit Requests</h1>
+    <div class="container">
+        {% if requests %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Requested Credits</th>
+                        <th>Requested At</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for req in requests %}
+                        <tr>
+                            <td>{{ req.user.username }}</td>
+                            <td>{{ req.requested_credits }}</td>
+                            <td>{{ req.requested_at|timezone:"Asia/Kolkata" }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <form method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="request_id" value="{{ req.id }}" />
+                                        <input type="hidden" name="action" value="approve" />
+                                        <button type="submit" class="approve">Approve</button>
+                                    </form>
+                                    <form method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="request_id" value="{{ req.id }}" />
+                                        <input type="hidden" name="action" value="deny" />
+                                        <button type="submit" class="deny">Deny</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="no-data">No pending credit requests.</p>
+        {% endif %}
+    </div>
+    <a href="{% url 'profile' %}" class="back-link">Back to Profile</a>
+</body>
+</html>

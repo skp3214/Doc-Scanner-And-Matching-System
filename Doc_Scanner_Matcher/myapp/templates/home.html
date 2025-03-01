@@ -1,1 +1,44 @@
-<h1>Hello Brother</h1>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document Scanning & Matching System</title>
+    <link rel="stylesheet" href="{% static 'CSS/home.css' %}" />
+</head>
+<body>
+    <h1>Welcome to the Document Scanning & Matching System</h1>
+    <p class="welcome-message">Hello, {{ request.user.username }}! Manage your documents, credits, and more.</p>
+
+    <div class="container">
+        <div class="features">
+            <div class="feature-card">
+                <h3>Document Scanning</h3>
+                <p>Upload and scan your documents to find matches and insights.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Credit Management</h3>
+                <p>Track and request additional credits for more scans.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>Smart Analytics</h3>
+                <p>View detailed analytics on your scans and usage.</p>
+            </div>
+        </div>
+
+        <div class="cta-buttons">
+            <a href="{% url 'profile' %}" class="cta-button">Go to Profile</a>
+            {% if request.user.is_staff %}
+                <a href="{% url 'admin_credits' %}" class="cta-button">Admin Dashboard</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2023 Document Scanning & Matching System. All rights reserved.</p>
+    </div>
+</body>
+</html>
