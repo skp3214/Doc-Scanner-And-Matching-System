@@ -17,6 +17,11 @@
     </div>
 
     <div class="section">
+        <h2>Scan Document</h2>
+        <a href="{% url 'scan_document' %}" class="button">Scan Document</a>
+    </div>
+
+    <div class="section">
         <h2>Previous Scans</h2>
         {% if scans %}
             <table>
@@ -40,6 +45,9 @@
         {% endif %}
     </div>
 
+    <div class="section">
+        <a href="{% url 'download_scan_history' %}" class="button">Download Scan History</a>
+    </div>
     <div class="section">
         <h2>Credit Requests</h2>
         {% if requests %}

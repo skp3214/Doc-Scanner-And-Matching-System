@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matching Documents</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .matches-list {
+            margin-top: 20px;
+        }
+        .match-item {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .match-item h3 {
+            margin: 0;
+            color: #0066cc;
+        }
+        .match-item p {
+            margin: 5px 0;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Matching Documents</h1>
+    <div class="matches-list">
+        {% if matches %}
+            {% for match in matches %}
+                <div class="match-item">
+                    <h3><a href="{% url 'document_detail' match.id %}">{{ match.file.name }}</a></h3>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No matching documents found.</p>
+        {% endif %}
+    </div>
+    <a href="{% url 'profile' %}" class="back-link">Back to Profile</a>
+</body>
+</html>

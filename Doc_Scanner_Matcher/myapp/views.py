@@ -1,10 +1,14 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from .models import UserProfile
 from .models import CreditRequest, Document
 from django.contrib.auth.decorators import login_required
 from .utils import reset_credits
+from .utils import levenshtein_distance
+from django.http import HttpResponse
+from django.utils import timezone
+
 def register(request):
     if request.method=='POST':
         form = UserCreationForm(request.POST)
@@ -32,8 +36,6 @@ def home(request):
         'username': request.user.username  
     }
     return render(request,'home.html',context)
-
-from django.contrib.auth.decorators import login_required
 
 @login_required
 def profile(request):
@@ -73,3 +75,55 @@ def admin_credits(request):
         credit_req.save()
     requests = CreditRequest.objects.filter(status='pending')
     return render(request, 'admincredits.html', {'requests': requests})
+
+
+@login_required
+def scan_document(request):
+    profile = request.user.userprofile
+    if profile.credits < 1:
+        return render(request, 'no_credits.html')
+    if request.method == 'POST':
+        file = request.FILES['file']
+        content = file.read().decode('utf-8')  
+        doc = Document.objects.create(user=request.user, file=file, content=content)
+        profile.credits -= 1
+        profile.save()
+        return redirect('matches', doc_id=doc.id)
+    return render(request, 'scan.html')
+
+def find_matches(doc):
+    
+    all_docs = Document.objects.exclude(id=doc.id)
+    matches = []
+    for other in all_docs:
+        distance = levenshtein_distance(doc.content, other.content)
+        if distance < len(doc.content) * 0.3:  
+            matches.append(other)
+    return matches
+
+@login_required
+def matches(request, doc_id):
+    doc = Document.objects.get(id=doc_id)
+    matches = find_matches(doc)
+    return render(request, 'matches.html', {'doc': doc, 'matches': matches})
+
+@login_required
+def document_detail(request, doc_id):
+
+    doc = get_object_or_404(Document, id=doc_id)
+    return render(request, 'document_detail.html', {'doc': doc})
+
+@login_required
+def download_scan_history(request):
+    
+    scans = Document.objects.filter(user=request.user)
+
+    content = f"Scan History for {request.user.username}\n\n"
+    for scan in scans:
+        content += f"Document: {scan.file.name}\n"
+        content += f"Scanned At: {scan.uploaded_at}\n"
+        content += "=" * 50 + "\n\n"
+
+    response = HttpResponse(content, content_type='text/plain')
+    response['Content-Disposition'] = f'attachment; filename="scan_history_{request.user.username}.txt"'
+    return response
