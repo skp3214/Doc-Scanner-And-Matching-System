@@ -45,7 +45,8 @@
         {% if matches %}
             {% for match in matches %}
                 <div class="match-item">
-                    <h3><a href="{% url 'document_detail' match.id %}">{{ match.file.name }}</a></h3>
+                    <h3><a href="{% url 'document_detail' match.document.id %}">{{ match.document.file.name }}</a></h3>
+                    <p>Similarity: {{ match.similarity_percentage }}%</p>
                 </div>
             {% endfor %}
         {% else %}

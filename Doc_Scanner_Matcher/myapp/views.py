@@ -5,7 +5,7 @@ from .models import UserProfile
 from .models import CreditRequest, Document
 from django.contrib.auth.decorators import login_required
 from .utils import reset_credits
-from .utils import levenshtein_distance
+from .utils import find_matches,ai_find_matches
 from django.http import HttpResponse
 from django.utils import timezone
 
@@ -91,20 +91,12 @@ def scan_document(request):
         return redirect('matches', doc_id=doc.id)
     return render(request, 'scan.html')
 
-def find_matches(doc):
-    
-    all_docs = Document.objects.exclude(id=doc.id)
-    matches = []
-    for other in all_docs:
-        distance = levenshtein_distance(doc.content, other.content)
-        if distance < len(doc.content) * 0.3:  
-            matches.append(other)
-    return matches
+
 
 @login_required
 def matches(request, doc_id):
     doc = Document.objects.get(id=doc_id)
-    matches = find_matches(doc)
+    matches = ai_find_matches(doc)
     return render(request, 'matches.html', {'doc': doc, 'matches': matches})
 
 @login_required
@@ -127,3 +119,4 @@ def download_scan_history(request):
     response = HttpResponse(content, content_type='text/plain')
     response['Content-Disposition'] = f'attachment; filename="scan_history_{request.user.username}.txt"'
     return response
+
