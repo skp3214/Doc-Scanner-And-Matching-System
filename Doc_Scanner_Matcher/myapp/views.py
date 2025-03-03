@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .utils import reset_credits
 from .utils import find_matches,ai_find_matches
 from django.http import HttpResponse
-from django.utils import timezone
+from django.db.models import Count
 
 def register(request):
     if request.method=='POST':
@@ -16,7 +16,7 @@ def register(request):
             user = form.save()
             UserProfile.objects.create(user=user)
             login(request,user)
-            return redirect('profile')
+            return redirect('home')
     else:
         form = UserCreationForm()
     return render(request,'register.html',{'form':form})
@@ -28,8 +28,12 @@ def user_login(request):
         user = authenticate(username=username,password=password)
         if user is not None:
             login(request,user)
-            return redirect('profile')
+            return redirect('home')
     return render(request,'login.html')
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
 
 def home(request):
     context = {
@@ -120,3 +124,20 @@ def download_scan_history(request):
     response['Content-Disposition'] = f'attachment; filename="scan_history_{request.user.username}.txt"'
     return response
 
+
+@login_required
+def analytics(request):
+    if not request.user.is_staff:
+        return redirect('profile')
+    
+    scans_per_user = Document.objects.values('user__username').annotate(total=Count('id'))
+    
+    credit_usage = UserProfile.objects.values('user__username', 'credits')
+    
+    common_topics = Document.objects.values('content').annotate(count=Count('id')).order_by('-count')[:5]
+    
+    return render(request, 'analytics.html', {
+        'scans': scans_per_user,
+        'credits': credit_usage,
+        'topics': common_topics
+    })
