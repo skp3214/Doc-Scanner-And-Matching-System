@@ -78,7 +78,10 @@
         {% if request.user.is_staff %}
             <a href="{% url 'admin_credits' %}" class="button">Admin Credit Management</a><br>
         {% endif %}
-        <a href="{% url 'logout' %}" class="button">Logout</a>
+        <div class="display-flex">
+            <a href="{% url 'logout' %}" class="button">Logout</a>
+            <a href="{% url 'home' %}" class="button">Home</a>
+        </div>
     </div>
 </body>
 </html>

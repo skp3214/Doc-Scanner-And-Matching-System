@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    background-color: #01161E;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,7 +18,7 @@ body {
 }
 
 h2 {
-    color: #333;
+    color: #01161E;
 }
 
 .form-group {
@@ -30,7 +30,7 @@ label {
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
-    color: #333;
+    color: #01161E;
 }
 
 input {
@@ -45,7 +45,7 @@ input {
 button {
     width: 100%;
     padding: 10px;
-    background: #007bff;
+    background: #01161E;
     color: white;
     border: none;
     border-radius: 5px;
@@ -55,5 +55,9 @@ button {
 }
 
 button:hover {
-    background: #0056b3;
+    background: #01161E;
+}
+
+a{
+    color: #2ab9f1;
 }

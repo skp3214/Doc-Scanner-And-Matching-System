@@ -2,22 +2,22 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
-    color: #333;
+    background-color: #01161E;
+    color: #ffffff;
 }
 
 h1 {
-    color: #444;
+    color: #ffffff;
     text-align: center;
     margin-top: 20px;
     font-size: 2.5em;
 }
 
 h2 {
-    color: #555;
+    color: #124559;
     font-size: 1.8em;
     margin-bottom: 15px;
-    border-bottom: 2px solid #0066cc;
+    border-bottom: 2px solid #124559;
     padding-bottom: 5px;
 }
 
@@ -46,10 +46,11 @@ th, td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    color: #01161E;
 }
 
 th {
-    background-color: #0066cc;
+    background-color: #01161E;
     color: white;
     font-weight: bold;
 }
@@ -59,39 +60,44 @@ tr:hover {
 }
 
 a {
-    color: #0066cc;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #ffffff;
     text-decoration: underline;
 }
 
 .button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #0066cc;
+    background-color: #01161E;
     color: white;
     margin-top: 5px;
+    margin-left: 5px;
     border-radius: 5px;
     text-align: center;
     transition: background-color 0.3s ease;
 }
 
 .button:hover {
-    background-color: #004499;
+    background-color: #124559;
 }
 
 .credits {
     font-size: 1.2em;
-    color: #0066cc;
+    color: #124559;
     font-weight: bold;
 }
 
 .no-data {
-    color: #888;
+    color: #124559;
     font-style: italic;
+}
+
+.display-flex{
+    display: flex;
+    justify-content:flex-start;
+    align-items: center;
 }

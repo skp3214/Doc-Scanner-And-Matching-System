@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    background-color: #01161E;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,6 +24,7 @@ h2 {
 
 p {
     margin-bottom: 15px;
+    color: white;
 }
 
 label {
@@ -58,7 +59,7 @@ ul {
 button {
     width: 100%;
     padding: 10px;
-    background: #007bff;
+    background: #01161E;
     color: white;
     border: none;
     border-radius: 5px;
@@ -68,5 +69,8 @@ button {
 }
 
 button:hover {
-    background: #0056b3;
+    background: #124559;
+}
+a{
+    color: #2ab9f1;
 }
