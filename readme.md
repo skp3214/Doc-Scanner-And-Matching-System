@@ -56,7 +56,7 @@ https://github.com/user-attachments/assets/3f877bad-e8f4-4952-9c60-cc52a271f141
 
 ## 🚀 Setup Instructions  
 
-### **🔗 Prerequisites**
+### **🔗 Prerequisites**  
 1️⃣ **Python 3.8+** installed on your system  
 2️⃣ **pip** (Python package manager)  
 
@@ -73,7 +73,7 @@ cd document-scanning-and-matching-system
 python -m venv venv
 venv\Scripts\activate
 ```
-📥 **Move to Project Directory**
+📥 **Move to Project Directory**  
 ```bash
 cd Doc_Scanner_Matcher
 ```
@@ -91,6 +91,7 @@ python manage.py migrate
 ```bash
 python manage.py createsuperuser
 ```
+👉 **Follow the prompts to set a username, email, and password for the admin user.**  
 
 ▶️ **Run the Development Server**  
 ```bash
@@ -98,6 +99,14 @@ python manage.py runserver
 ```
 
 🌍 **Access the App**: Open **`http://127.0.0.1:8000/`** in your browser  
+
+📌 **Important Note**:  
+- To allow the admin user to **approve/deny credit requests**, follow these steps:  
+  - Log in to the Django admin panel at **`http://127.0.0.1:8000/admin/`** using the superuser credentials.  
+  - Navigate to the **UserProfiles** table.  
+  - Add the admin user to this table to grant them the required privileges.  
+
+Now, the admin user can **approve/deny** credit requests as shown in the video. 🚀  
 
 ---
 
