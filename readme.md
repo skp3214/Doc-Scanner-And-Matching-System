@@ -1,7 +1,7 @@
 
 # **📄 Document Scanning & Matching System**
 
-🔍 A self-contained **document scanning and matching system** with a built-in **credit system**. Users can upload documents, scan them for matches, and manage their credits, while admins can view analytics and approve credit requests.  
+🔍 A self-contained **document scanning and matching system** with a built-in **credit system**. Users can upload documents, scan them for matches, and manage their credits, while admin can view analytics and approve credit requests.  
 
 ---
 
@@ -17,7 +17,7 @@ https://github.com/user-attachments/assets/3f877bad-e8f4-4952-9c60-cc52a271f141
 
 ### 🔑 **User Management**
 ✅ User **registration & login**  
-✅ User **roles**: Regular Users & Admins  
+✅ User **roles**: Regular Users & Admin  
 ✅ Profile section with **credits, past scans, and credit requests**  
 
 ### 💰 **Credit System**
